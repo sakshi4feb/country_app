@@ -1,13 +1,13 @@
 import React from 'react'
-import { Counter } from './components/Counter'
+import Index from './routes';
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <Counter />
-    </div>
-  )
-}
+    <>
+        <Index />
+    </>
+  );
+};
 
 export default App

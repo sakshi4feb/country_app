@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
+import {fetchCount} from '../../services/fetchCount'
 
 export interface CounterState {
   value: number
@@ -26,10 +27,7 @@ export const incrementAsync = createAsyncThunk(
 )
 
 //  This is the async function that is called by the thunk
-const fetchCount = async (amount: number) => {
-  let response = await fetch(`someurl/${amount}`)
-  return response.json()
-}
+
 
 export const counterSlice = createSlice({
   name: 'counter',
