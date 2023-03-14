@@ -9,16 +9,17 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
+import { useAppSelector, useAppDispatch } from '../app/hooks'
 
 
 const CountryData = () => {
-  
+  const {favouriteCountries} = useAppSelector((state: { countryR: any }) => state.countryR)
     const {state} = useLocation() 
+    const existingCountry = favouriteCountries.find((country:any)=>country===state.name.common)
+    console.log(existingCountry)
   return (
-
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
@@ -48,12 +49,10 @@ const CountryData = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        </IconButton> */}
+       {existingCountry ? <FavoriteIcon color="primary"/>: <FavoriteIcon color="secondary" />} 
        
       </CardActions>
 
@@ -66,4 +65,9 @@ const CountryData = () => {
 }
 
 export default CountryData
+
+// const existingCountry = state.countries.find((country:any) =>country.name.common === action.payload);
+//       if (existingCountry) {
+//        state.favouriteCountries.push(action.payload)
+//       }
 

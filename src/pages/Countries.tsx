@@ -9,6 +9,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Autocomplete, TextField ,Stack}  from '@mui/material';
 import { updateFavourite , searchCountry } from '../redux/country/countrySlice';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import TableHeader from '../components/TableHeader'
+import {getComparator, stableSort } from '../services/sorting'
 
 
 import Table from '@mui/material/Table';
@@ -21,11 +24,20 @@ import Paper from '@mui/material/Paper';
 import {IconButton } from '@mui/material';
 
 
+
 export const Countries = () => {
     const {countries , searchedCountry} = useAppSelector((state: { countryR: any }) => state.countryR)
     const [country, setCountry] = useState(null)
     const [isSearch, setIsSearch] = useState(false)
-    console.log({country})
+    
+    //sorting
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('name');
+    //Pagination
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    
     const dispatch = useAppDispatch()
     useEffect(()=>{
       
@@ -34,6 +46,7 @@ export const Countries = () => {
 
     const handleClick=(countryName : any)=>{
        dispatch(updateFavourite(countryName))
+      
     }
     const handleSearch=(newValue:any)=>{
       if(newValue){
@@ -49,8 +62,16 @@ export const Countries = () => {
 
       }
     }
-    
-    const renderCountries=  countries.map((country: any) =>  (
+
+    const handleRequestSort=(event:any,property:any)=>{
+      const isAscending=(orderBy===property && order==="asc")
+      setOrderBy(property)
+      setOrder(isAscending?"desc" : "asc")
+    }
+
+   
+    const renderCountries =  stableSort(countries,getComparator(order,orderBy))
+    .map((country: any) =>  (
       
       <TableRow
       key={nanoid()}
@@ -68,7 +89,7 @@ export const Countries = () => {
   ))
 
   const renderSearchCountry = searchedCountry.map((country: any) =>  (
-      
+
     <TableRow
     key={nanoid()}
     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -83,7 +104,6 @@ export const Countries = () => {
     <TableCell align="right"><Link to={country.name.common} state={country}><IconButton><ArrowForwardIosIcon color="primary"/></IconButton></Link></TableCell>
 </TableRow>
 
-  
 ))
     return (
             <>
@@ -98,7 +118,7 @@ export const Countries = () => {
                     <TextField
                       {...params}
                       variant="standard"
-                      placeholder="Search a Country" 
+                      placeholder="Search a Country"
                       label="Countries"
 
                     />
@@ -111,20 +131,10 @@ export const Countries = () => {
 
                 <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Flag</TableCell>
-                        <TableCell align="right">Name</TableCell>
-                        <TableCell align="right">Region</TableCell>
-                        <TableCell align="right">Population</TableCell>
-                        <TableCell align="right">Languages</TableCell>
-                    </TableRow>
-                    </TableHead>
+                    <TableHeader order={order} orderBy={orderBy} handleRequestSort={handleRequestSort}/>
                     <TableBody>{isSearch?renderSearchCountry:renderCountries}</TableBody>
                 </Table>
                 </TableContainer>
-                
-               
                 </>
     )
 }

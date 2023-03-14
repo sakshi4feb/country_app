@@ -30,8 +30,8 @@ export const fetchCountries = createAsyncThunk(
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
       updateFavourite: (state, action) => {
-      const existingCountry = state.countries.find((country:any) =>country.name.common === action.payload);
-      if (existingCountry) {
+      const existingCountry = state.favouriteCountries.find((country:any) =>country === action.payload);
+      if (!existingCountry) {
        state.favouriteCountries.push(action.payload)
       }
     },
