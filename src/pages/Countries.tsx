@@ -12,6 +12,7 @@ import { updateFavourite , searchCountry } from '../redux/country/countrySlice';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableHeader from '../components/TableHeader'
 import {getComparator, stableSort } from '../services/sorting'
+import Pagination from '../components/Pagination';
 
 
 import Table from '@mui/material/Table';
@@ -68,9 +69,24 @@ export const Countries = () => {
       setOrderBy(property)
       setOrder(isAscending?"desc" : "asc")
     }
+    
 
+    const handleChangePage = (
+      event: React.MouseEvent<HTMLButtonElement> | null,
+      newPage: number,
+    ) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
    
     const renderCountries =  stableSort(countries,getComparator(order,orderBy))
+    .slice(page * rowsPerPage,page * rowsPerPage + rowsPerPage )
     .map((country: any) =>  (
       
       <TableRow
@@ -135,6 +151,7 @@ export const Countries = () => {
                     <TableBody>{isSearch?renderSearchCountry:renderCountries}</TableBody>
                 </Table>
                 </TableContainer>
+                <Pagination page={page} rowsPerPage={rowsPerPage} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage} />
                 </>
     )
 }
