@@ -1,9 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../../app/store'
 import { fetchCountry } from '../../services/fetchCountries'
-import { CountryState, CountryT, Country } from '../../types/CountryTypes'
-import axios from "axios"
-
+import { Country } from '../../types/CountryTypes'
 
 const initialState: any = {
   countries:[],
@@ -12,7 +9,7 @@ const initialState: any = {
   isError: false,
   favouriteCountries:[],
   searchedCountry:[],
-  
+ 
  }
 
 export const fetchCountries = createAsyncThunk(
@@ -30,8 +27,8 @@ export const fetchCountries = createAsyncThunk(
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
       updateFavourite: (state, action) => {
-      const existingCountry = state.countries.find((country:any) =>country.name.common === action.payload);
-      if (existingCountry) {
+      const existingCountry = state.favouriteCountries.find((country:any) =>country === action.payload);
+      if (!existingCountry) {
        state.favouriteCountries.push(action.payload)
       }
     },
@@ -56,7 +53,6 @@ export const fetchCountries = createAsyncThunk(
         .addCase(fetchCountries.fulfilled, (state, action:PayloadAction<any>) => {
           state.isLoading = false;
           state.message = "Fetch Successful";
-          //console.log(action.payload)
           state.countries =  state.countries.concat(action.payload)
         })
         .addCase(fetchCountries.rejected, (state) => {
