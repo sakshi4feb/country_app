@@ -15,8 +15,7 @@ const initialState: any = {
 export const fetchCountries = createAsyncThunk(
   "country/fetchCountry",
   async (_, thunkAPI) => {
-    const response: Country[] = await fetchCountry();
-    // The value we return becomes the `fulfilled` action payload
+    const response: Country [] = await fetchCountry();
     return response;
   }
 );
@@ -60,7 +59,8 @@ export const countrySlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.isLoading = false;
           state.message = "Fetch Successful";
-          state.countries = state.countries.concat(action.payload);
+          state.countries = action.payload;
+          
         }
       )
       .addCase(fetchCountries.rejected, (state) => {

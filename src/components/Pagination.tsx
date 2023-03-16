@@ -9,7 +9,6 @@ const Pagination = (props: any) => {
   const page: any = useContext(PaginationContextPage);
   const rowsPerPage: any = useContext(PaginationContextRowsPerPage);
   const { handleChangePage, handleChangeRowsPerPage } = props;
-  console.log(rowsPerPage);
 
   const createHandleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
