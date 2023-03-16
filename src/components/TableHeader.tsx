@@ -1,34 +1,42 @@
-import React from 'react'
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import React from "react";
 
-const TableHeader = (props:any) => {
-    const {order, orderBy , handleRequestSort} = props
-    const createSortHandler = (property:any)=> (event:any) =>{
-        handleRequestSort(event,property)
-    }
+const TableHeader = (props: any) => {
+  const { order, orderBy, handleRequestSort } = props;
+  const createSortHandler = (property: any) => (event: any) => {
+    handleRequestSort(event, property);
+  };
 
   return (
     <TableHead>
-    <TableRow>
+      <TableRow>
         <TableCell>Flag</TableCell>
-        <TableCell key = "name" align="right">
-            <TableSortLabel active={orderBy==="name"}  
-                            direction={orderBy==="name"?order:"asc"}
-                            onClick={createSortHandler("name")}>Name</TableSortLabel>
+        <TableCell key="name" align="right">
+          <TableSortLabel
+            active={orderBy === "name"}
+            direction={orderBy === "name" ? order : "asc"}
+            onClick={createSortHandler("name")}
+          >
+            Name
+          </TableSortLabel>
         </TableCell>
         <TableCell align="right">Region</TableCell>
         <TableCell key="population" align="right">
-            <TableSortLabel active={orderBy==="population"}  
-                            direction={orderBy==="population"?order:"asc"}
-                            onClick={createSortHandler("population")}>Population</TableSortLabel>
+          <TableSortLabel
+            active={orderBy === "population"}
+            direction={orderBy === "population" ? order : "asc"}
+            onClick={createSortHandler("population")}
+          >
+            Population
+          </TableSortLabel>
         </TableCell>
         <TableCell align="right">Languages</TableCell>
-    </TableRow>
+      </TableRow>
     </TableHead>
-  )
-}
+  );
+};
 
-export default TableHeader
+export default TableHeader;
