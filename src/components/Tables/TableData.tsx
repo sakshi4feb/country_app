@@ -9,7 +9,8 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { stableSort , getComparator } from '../../services/sorting'
 import TableBody from '@mui/material/TableBody'
 import { updateFavourite} from '../../redux/country/countrySlice';
-
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {IconButton } from '@mui/material';
 import { Link } from "react-router-dom";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -37,10 +38,11 @@ const TableData = () => {
     <TableCell align="right">{country.population}</TableCell>
     <TableCell align="right">{ country.languages && (Object.values(country.languages) as string[]).map((language)=><li>{language}</li>)}
     </TableCell>
-    <TableCell align="right"><IconButton onClick={()=> dispatch(updateFavourite(country.name.common))}><FavoriteIcon color= "primary" /></IconButton></TableCell>
+    <TableCell align="right"><IconButton onClick={()=> dispatch(updateFavourite(country.name.common)) }><FavoriteIcon color= "primary" /></IconButton></TableCell>
+    
     <TableCell align="right"><Link to={country.name.common} state={country}><IconButton><ArrowForwardIosIcon color="primary"/></IconButton></Link></TableCell>
 </TableRow>
-
+//dispatch(updateFavourite(country.name.common))
 ))
 
 const renderSearchCountry = searchedCountry.map((country: any) =>  (
@@ -64,6 +66,7 @@ const renderSearchCountry = searchedCountry.map((country: any) =>  (
 
   
   <TableBody>{search?renderSearchCountry:renderCountries}</TableBody> 
+  <ToastContainer />
   </>
   
   )

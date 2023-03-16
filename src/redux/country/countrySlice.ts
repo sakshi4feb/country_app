@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchCountry } from '../../services/fetchCountries'
 import { Country } from '../../types/CountryTypes'
+import {toast } from 'react-toastify';
 
 const initialState: any = {
   countries:[],
@@ -30,10 +31,14 @@ export const fetchCountries = createAsyncThunk(
       const existingCountry = state.favouriteCountries.find((country:any) =>country === action.payload);
       if (!existingCountry) {
        state.favouriteCountries.push(action.payload)
+       toast("A country just added to the favorite page!");
+      }
+      else{
+        state.favouriteCountries.pop(action.payload)
+        toast("A country just got removed from the favorite page!");
       }
     },
     searchCountry:(state,action) => {
-      console.log(action.payload)
       const existingCountry=state.countries.find((country:any)=>country.name.common===action.payload.name.common)
        if (existingCountry) {
           state.searchedCountry=[];

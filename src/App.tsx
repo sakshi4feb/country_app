@@ -15,16 +15,17 @@ function App() {
        mode: mode ? "light" : "dark",
        primary: {
         main : red[700]
-       }
+       }},
+    typography : {
+      fontFamily:"'Nunito', sans-serif"
     }
   });
-  
   return (
-    <ThemeProvider theme={theme}>  
+    <ThemeProvider theme={theme}>
     <Paper>
       <Switch onClick={()=>setMode(!mode)}></Switch>
         <Index />
-    </Paper>    
+    </Paper>
     </ThemeProvider>
   );
 };

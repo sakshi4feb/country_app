@@ -6,6 +6,7 @@ import {searchCountry } from '../redux/country/countrySlice';
 import TableHeader from '../components/TableHeader'
 import Pagination from '../components/Pagination';
 import TableData from '../components/Tables/TableData';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
@@ -13,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import { TableContext } from '../Context/TableContext';
 import { PaginationContextPage , PaginationContextRowsPerPage } from '../Context/PaginationContext';
 import { SortingContextOrder,SortingContextOrderBy } from '../Context/SortingContext';
+
 
 export const Countries = () => {
 
@@ -32,6 +34,7 @@ export const Countries = () => {
       
       dispatch(fetchCountries())
     },[dispatch])
+
 
     const handleSearch=(newValue:any)=>{
       if(newValue){
@@ -101,8 +104,7 @@ export const Countries = () => {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHeader order={order} orderBy={orderBy} handleRequestSort={handleRequestSort}/>
                     <TableContext.Provider value={isSearch} >
-                    
-                    <TableData />
+                    <TableData/>
                      </TableContext.Provider>
                 </Table>
                 </TableContainer>
