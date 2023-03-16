@@ -1,10 +1,12 @@
 import TablePagination from '@mui/material/TablePagination'
-import React from 'react'
+import React , {useContext} from 'react'
+import { PaginationContextPage , PaginationContextRowsPerPage } from '../Context/PaginationContext'
 
 const Pagination = (props:any) => {
-
-   
-    const {page, rowsPerPage, handleChangePage, handleChangeRowsPerPage}=props
+  const page : any = useContext(PaginationContextPage)
+  const rowsPerPage : any = useContext(PaginationContextRowsPerPage)
+    const {handleChangePage, handleChangeRowsPerPage}=props
+    console.log(rowsPerPage)
 
     const createHandleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -19,6 +21,7 @@ const Pagination = (props:any) => {
         handleChangeRowsPerPage(event)
       };
   return (
+
     <TablePagination
         component="div"
         count={500}
