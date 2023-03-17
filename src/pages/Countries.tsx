@@ -19,9 +19,10 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import CircleLoader from "react-spinners/CircleLoader";
 
 export const Countries = () => {
-  const { countries } = useAppSelector(
+  const { countries , isLoading} = useAppSelector(
     (state: { countryR: any }) => state.countryR
   );
   const [country, setCountry] = useState(null);
@@ -71,7 +72,16 @@ export const Countries = () => {
     setPage(0);
   };
   return (
-    <>
+    <div>
+      {isLoading? <CircleLoader
+        color={'red'}
+        loading={isLoading}
+        size={50}
+        cssOverride={{display: "block", margin:"auto", marginTop:"12rem", height:"100vh"}}
+        aria-label="Loading Spinner"
+        speedMultiplier={3}
+      /> : 
+      <div>
       <Stack spacing={2} sx={{ width: 400 }}>
         <Autocomplete
           id="size-small-standard"
@@ -103,6 +113,7 @@ export const Countries = () => {
                     handleRequestSort={handleRequestSort}
                   />
                   <TableContext.Provider value={isSearch}>
+              
                     <TableData />
                   </TableContext.Provider>
                 </Table>
@@ -115,6 +126,7 @@ export const Countries = () => {
           </PaginationContextPage.Provider>
         </SortingContextOrderBy.Provider>
       </SortingContextOrder.Provider>
-    </>
+      </div>}
+    </div>
   );
 };
