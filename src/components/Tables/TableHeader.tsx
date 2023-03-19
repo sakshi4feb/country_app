@@ -3,10 +3,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import React from "react";
+import { Order, OrderBY } from "../../types/CountryTypes";
 
-const TableHeader = (props: any) => {
+
+type TableHeaderProps = {
+  order : Order,
+  orderBy : OrderBY,
+  handleRequestSort : (event :React.MouseEvent<HTMLButtonElement> , property : OrderBY ) => void
+}
+const TableHeader = (props: TableHeaderProps) => {
   const { order, orderBy, handleRequestSort } = props;
-  const createSortHandler = (property: any) => (event: any) => {
+  const createSortHandler = (property: OrderBY ) => (event: React.MouseEvent<HTMLButtonElement>) => {
     handleRequestSort(event, property);
   };
 
@@ -14,7 +21,7 @@ const TableHeader = (props: any) => {
     <TableHead>
       <TableRow>
         <TableCell>Flag</TableCell>
-        <TableCell key="name" align="right">
+        <TableCell key="name">
           <TableSortLabel
             active={orderBy === "name"}
             direction={orderBy === "name" ? order : "asc"}
@@ -23,8 +30,8 @@ const TableHeader = (props: any) => {
             Name
           </TableSortLabel>
         </TableCell>
-        <TableCell align="right">Region</TableCell>
-        <TableCell key="population" align="right">
+        <TableCell>Region</TableCell>
+        <TableCell key="population" align="justify">
           <TableSortLabel
             active={orderBy === "population"}
             direction={orderBy === "population" ? order : "asc"}
@@ -33,7 +40,7 @@ const TableHeader = (props: any) => {
             Population
           </TableSortLabel>
         </TableCell>
-        <TableCell align="right">Languages</TableCell>
+        <TableCell>Languages</TableCell>
       </TableRow>
     </TableHead>
   );
