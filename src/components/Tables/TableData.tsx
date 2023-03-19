@@ -17,20 +17,23 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CountryT } from "../../types/CountryTypes";
+
+
 
 const TableData = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const search = useContext(TableContext);
   const page: any = useContext(PaginationContextPage);
   const rowsPerPage: any = useContext(PaginationContextRowsPerPage);
-  const order: any = useContext(SortingContextOrder);
-  const orderBy: any = useContext(SortingContextOrderBy);
+  const order = useContext(SortingContextOrder);
+  const orderBy= useContext(SortingContextOrderBy);
   const { countries, searchedCountry } = useAppSelector(
-    (state: { countryR: any }) => state.countryR
+    (state: { countryR: any}) => state.countryR
   );
   const dispatch = useAppDispatch();
   const renderCountries = stableSort(countries, getComparator(order, orderBy))
@@ -40,27 +43,29 @@ const TableData = () => {
         key={nanoid()}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
+       
         <TableCell component="th" scope="row">
           <img src={country.flags.png} alt="flag" width="100"></img>
         </TableCell>
-        <TableCell align="right">{country.name.common}</TableCell>
-        <TableCell align="right">{country.region}</TableCell>
-        <TableCell align="right">{country.population}</TableCell>
-        <TableCell align="right">
+        <TableCell align="justify">{country.name.common}</TableCell>
+        <TableCell align="justify">{country.region}</TableCell>
+        <TableCell align="justify">{country.population}</TableCell>
+        <TableCell align="justify">
           {country.languages &&
             (Object.values(country.languages) as string[]).map((language) => (
               <li>{language}</li>
             ))}
         </TableCell>
-        <TableCell align="right">
-          <IconButton
+        <TableCell align="justify">
+          <IconButton color="primary"
             onClick={() => dispatch(updateFavourite(country.name.common))}
+            
           >
-            <FavoriteIcon color="primary" />
+            <FavoriteIcon  />
           </IconButton>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell align="justify">
           <Link to={country.name.common} state={country}>
             <IconButton>
               <ArrowForwardIosIcon color="primary" />
@@ -68,34 +73,34 @@ const TableData = () => {
           </Link>
         </TableCell>
       </TableRow>
-      //dispatch(updateFavourite(country.name.common))
     ));
 
   const renderSearchCountry = searchedCountry.map((country: any) => (
     <TableRow
       key={nanoid()}
-      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+     
     >
       <TableCell component="th" scope="row">
         <img src={country.flags.png} alt="flag" width="100"></img>
       </TableCell>
-      <TableCell align="right">{country.name.common}</TableCell>
-      <TableCell align="right">{country.region}</TableCell>
-      <TableCell align="right">{country.population}</TableCell>
-      <TableCell align="right">
+      <TableCell>{country.name.common}</TableCell>
+      <TableCell>{country.region}</TableCell>
+      <TableCell>{country.population}</TableCell>
+      <TableCell>
         {country.languages &&
           (Object.values(country.languages) as string[]).map((language) => (
             <li>{language}</li>
           ))}
       </TableCell>
-      <TableCell align="right">
-        <IconButton
+      <TableCell>
+        <IconButton  color="primary"
           onClick={() => dispatch(updateFavourite(country.name.common))}
+          
         >
-          <FavoriteIcon color="primary" />
+          <FavoriteIcon />
         </IconButton>
       </TableCell>
-      <TableCell align="right">
+      <TableCell>
         <Link to={country.name.common} state={country}>
           <IconButton>
             <ArrowForwardIosIcon color="primary" />

@@ -3,16 +3,23 @@ export interface Country {
 }
 
 export interface CountryT {
-  // userId: number
-  // id: number
-  // title: string
-  // completed: boolean
-  name: Country;
+  languages:{[key: string]: string}
+  population:number
+  region:string
+  flags:{png:string}
+  name: {common:string};
 }
 
 export interface CountryState {
   countries: CountryT[];
   isLoading: boolean;
-  isError: boolean;
   message: string;
+  isError: boolean;
+  favouriteCountries: string[],
+  searchedCountry: CountryT[],
+  
 }
+
+export type Order = "asc" | "desc"
+
+export type OrderBY = "name" | "population"

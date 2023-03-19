@@ -1,9 +1,10 @@
 import { fetchCountry } from "../../services/fetchCountries";
-import { Country } from "../../types/CountryTypes";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { CountryState } from "../../types/CountryTypes";
+import { CountryT } from "../../types/CountryTypes";
 
-const initialState: any = {
+const initialState: CountryState = {
   countries: [],
   isLoading: false,
   message: "",
@@ -15,7 +16,7 @@ const initialState: any = {
 export const fetchCountries = createAsyncThunk(
   "country/fetchCountry",
   async (_, thunkAPI) => {
-    const response: Country [] = await fetchCountry();
+    const response: CountryT [] = await fetchCountry();
     return response;
   }
 );
@@ -25,21 +26,21 @@ export const countrySlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    updateFavourite: (state, action) => {
-      const existingCountry = state.favouriteCountries.find(
-        (country: any) => country === action.payload
+    updateFavourite: (state, action:PayloadAction<string>) => {
+      let existingCountry = state.favouriteCountries.find(
+        (country: string) => country === action.payload
       );
       if (!existingCountry) {
         state.favouriteCountries.push(action.payload);
         toast("A country just added to the favorite page!");
       } else {
-        state.favouriteCountries.pop(action.payload);
+        state.favouriteCountries=state.favouriteCountries.filter((country:string)=>country!==action.payload)
         toast("A country just got removed from the favorite page!");
       }
     },
-    searchCountry: (state, action) => {
+    searchCountry: (state, action:PayloadAction<CountryT>) => {
       const existingCountry = state.countries.find(
-        (country: any) => country.name.common === action.payload.name.common
+        (country: CountryT) => country.name.common === action.payload.name.common
       );
       if (existingCountry) {
         state.searchedCountry = [];
@@ -56,7 +57,7 @@ export const countrySlice = createSlice({
       })
       .addCase(
         fetchCountries.fulfilled,
-        (state, action: PayloadAction<any>) => {
+        (state, action: PayloadAction<CountryT[]>) => {
           state.isLoading = false;
           state.message = "Fetch Successful";
           state.countries = action.payload;

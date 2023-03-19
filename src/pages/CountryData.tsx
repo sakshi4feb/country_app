@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { useAppSelector} from "../app/hooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Avatar from "@mui/material/Avatar";
@@ -15,11 +15,11 @@ import { useLocation } from "react-router-dom";
 
 const CountryData = () => {
   const { favouriteCountries } = useAppSelector(
-    (state: { countryR: any }) => state.countryR
+    (state) => state.countryR
   );
   const { state } = useLocation();
   const existingCountry = favouriteCountries.find(
-    (country: any) => country === state.name.common
+    (country: string) => country === state.name.common
   );
   console.log(existingCountry);
   return (
@@ -67,8 +67,3 @@ const CountryData = () => {
 };
 
 export default CountryData;
-
-// const existingCountry = state.countries.find((country:any) =>country.name.common === action.payload);
-//       if (existingCountry) {
-//        state.favouriteCountries.push(action.payload)
-//       }

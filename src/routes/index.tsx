@@ -5,19 +5,24 @@ import ErrorPage from "../pages/ErrorPage";
 import FavouriteCountries from "../pages/FavouriteCountries";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
+
 
 const Index = () => {
   return (
     <BrowserRouter>
       <header>
-        <Navbar />
+       <Navbar />
       </header>
+      <main>
       <Routes>
         <Route path="/" element={<Countries />} />
         <Route path=":countryName" element={<CountryData />} />
         <Route path="/favoutiteCountries" element={<FavouriteCountries />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      </main>
+      <Footer/>
     </BrowserRouter>
   );
 };

@@ -9,7 +9,7 @@ import {
 import { TableContext } from "../Context/TableContext";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import Pagination from "../components/Pagination";
-import TableHeader from "../components/TableHeader";
+import TableHeader from "../components/Tables/TableHeader";
 import TableData from "../components/Tables/TableData";
 import { fetchCountries } from "../redux/country/countrySlice";
 import { searchCountry } from "../redux/country/countrySlice";
@@ -20,16 +20,21 @@ import TableContainer from "@mui/material/TableContainer";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import CircleLoader from "react-spinners/CircleLoader";
+import TableFooter from '@mui/material/TableFooter';
+import TableRow from '@mui/material/TableRow';
+import { CountryT, Order, OrderBY } from "../types/CountryTypes";
+
 
 export const Countries = () => {
   const { countries , isLoading} = useAppSelector(
-    (state: { countryR: any }) => state.countryR
+    (state: { countryR:any }) => state.countryR
   );
-  const [country, setCountry] = useState(null);
+  const [country, setCountry] = useState<CountryT | null>(null);
   const [isSearch, setIsSearch] = useState(false);
   //sorting
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
+  const [order, setOrder] = React.useState<Order>("asc");
+  const [orderBy, setOrderBy] = React.useState<OrderBY>("name");
+
   //Pagination
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -39,25 +44,22 @@ export const Countries = () => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
-  const handleSearch = (newValue: any) => {
+  const handleSearch = (newValue: CountryT) => {
+    console.log(newValue)
     if (newValue) {
       setCountry(newValue);
-
       setIsSearch(true);
-
       dispatch(searchCountry(newValue));
     } else {
       setIsSearch(false);
       setCountry(null);
     }
   };
-
-  const handleRequestSort = (event: any, property: any) => {
-    const isAscending = orderBy === property && order === "asc";
+  const handleRequestSort = (event: React.MouseEvent<HTMLButtonElement>, property: "name" | "population") => {
+    const isAscending = (orderBy === property && order === "asc");
     setOrderBy(property);
     setOrder(isAscending ? "desc" : "asc");
   };
-
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -82,7 +84,7 @@ export const Countries = () => {
         speedMultiplier={3}
       /> : 
       <div>
-      <Stack spacing={2} sx={{ width: 400 }}>
+      <Stack spacing={2} sx={{ width: 200 }}>
         <Autocomplete
           id="size-small-standard"
           size="small"
@@ -94,7 +96,6 @@ export const Countries = () => {
               {...params}
               variant="standard"
               placeholder="Search a Country"
-              label="Countries"
             />
           )}
           value={country}
@@ -114,14 +115,19 @@ export const Countries = () => {
                   />
                   <TableContext.Provider value={isSearch}>
               
-                    <TableData />
+                    <TableData/>
                   </TableContext.Provider>
+                  <TableFooter>
+                      <TableRow>
+                        <Pagination
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        />
+                      </TableRow>
+                  </TableFooter>
                 </Table>
               </TableContainer>
-              <Pagination
-                handleChangePage={handleChangePage}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-              />
+              
             </PaginationContextRowsPerPage.Provider>
           </PaginationContextPage.Provider>
         </SortingContextOrderBy.Provider>

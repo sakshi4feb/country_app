@@ -9,8 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+
 const Navbar = () => {
-  const { favouriteCountries } = useAppSelector((state: any) => state.countryR);
+  const { favouriteCountries } = useAppSelector((state) => state.countryR);
 
   return (
     <>
@@ -37,6 +39,7 @@ const Navbar = () => {
                 <FavoriteIcon />
               </Badge>
             </Link>
+            {/* <Switch onClick={() => setMode()}></Switch> */}
           </Toolbar>
         </AppBar>
       </Box>
