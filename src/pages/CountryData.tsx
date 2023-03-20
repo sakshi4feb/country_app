@@ -23,7 +23,7 @@ const CountryData = () => {
   const isFavourite = (countryName : string)=>(favouriteCountries.includes(countryName))
   
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, m:10 , ml:70}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -57,7 +57,7 @@ const CountryData = () => {
           <FavoriteIcon />
         </IconButton> */}
        
-       <IconButton color={isFavourite(state.name.common) ? "primary" : "error"}
+       <IconButton color={isFavourite(state.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(state.name.common))}>
             <FavoriteIcon  />
        </IconButton>

@@ -74,7 +74,7 @@ export const Countries = () => {
     setPage(0);
   };
   return (
-    <div>
+    <div className="main">
       {isLoading? <CircleLoader
         color={'red'}
         loading={isLoading}
@@ -82,7 +82,7 @@ export const Countries = () => {
         cssOverride={{display: "block", margin:"auto", marginTop:"12rem", height:"100vh"}}
         aria-label="Loading Spinner"
         speedMultiplier={3}
-      /> : 
+      /> :
       <div>
       <Stack spacing={2} sx={{ width: 200 }}>
         <Autocomplete
@@ -115,8 +115,8 @@ export const Countries = () => {
                   />
                   <TableContext.Provider value={isSearch}>
               
-                    <TableData/>
-                  </TableContext.Provider>
+                    <TableData />
+                   </TableContext.Provider>
                   <TableFooter>
                       <TableRow>
                         <Pagination

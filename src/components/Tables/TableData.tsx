@@ -53,11 +53,11 @@ const TableData = () => {
         <TableCell align="justify">
           {country.languages &&
             (Object.values(country.languages) as string[]).map((language) => (
-              <li>{language}</li>
+              <li key={nanoid()}>{language}</li>
             ))}
         </TableCell>
         <TableCell align="justify">
-          <IconButton color={isFavourite(country.name.common) ? "primary" : "error"}
+          <IconButton color={isFavourite(country.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(country.name.common))}>
             <FavoriteIcon  />
           </IconButton>
@@ -76,7 +76,6 @@ const TableData = () => {
   const renderSearchCountry = searchedCountry.map((country: CountryT) => (
     <TableRow
       key={nanoid()}
-     
     >
       <TableCell component="th" scope="row">
         <img src={country.flags.png} alt="flag" width="100"></img>
@@ -87,11 +86,11 @@ const TableData = () => {
       <TableCell>
         {country.languages &&
           (Object.values(country.languages) as string[]).map((language) => (
-            <li>{language}</li>
+            <li key={nanoid()} >{language}</li>
           ))}
       </TableCell>
       <TableCell>
-      <IconButton color={isFavourite(country.name.common) ? "primary" : "error"}
+      <IconButton color={isFavourite(country.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(country.name.common))}>
             <FavoriteIcon  />
           </IconButton>

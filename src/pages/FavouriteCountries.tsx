@@ -5,12 +5,12 @@ const FavouriteCountries = () => {
   const { favouriteCountries } = useAppSelector(
     (state) => state.countryR
   );
-
   const renderCountries = favouriteCountries.map((country:string)=><li> {country}</li>)
-  return (<>
-  <h3 className="fav-countries">Favourite Countries:</h3>
-  <div className="fav-country"><ul>{renderCountries}</ul></div>
-  </>);
+  return (<div >
+  {favouriteCountries.length ?
+  <div className="fav-country">Favourite Countries:<ul>{renderCountries}</ul></div> 
+  : <h3 text-align = "center">There are no favourite countries</h3>}
+  </div>);
 };
 
 export default FavouriteCountries;
