@@ -24,7 +24,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { CountryT } from "../../types/CountryTypes";
 
 
-
 const TableData = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const search = useContext(TableContext);
@@ -32,13 +31,14 @@ const TableData = () => {
   const rowsPerPage: any = useContext(PaginationContextRowsPerPage);
   const order = useContext(SortingContextOrder);
   const orderBy= useContext(SortingContextOrderBy);
-  const { countries, searchedCountry } = useAppSelector(
-    (state: { countryR: any}) => state.countryR
+  const { countries, searchedCountry , favouriteCountries } = useAppSelector(
+    (state) => state.countryR
   );
+  const isFavourite = (countryName : string)=>(favouriteCountries.includes(countryName))
   const dispatch = useAppDispatch();
   const renderCountries = stableSort(countries, getComparator(order, orderBy))
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-    .map((country: any) => (
+    .map((country: CountryT) => (
       <TableRow
         key={nanoid()}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -57,10 +57,8 @@ const TableData = () => {
             ))}
         </TableCell>
         <TableCell align="justify">
-          <IconButton color="primary"
-            onClick={() => dispatch(updateFavourite(country.name.common))}
-            
-          >
+          <IconButton color={isFavourite(country.name.common) ? "primary" : "error"}
+            onClick={() => dispatch(updateFavourite(country.name.common))}>
             <FavoriteIcon  />
           </IconButton>
         </TableCell>
@@ -75,7 +73,7 @@ const TableData = () => {
       </TableRow>
     ));
 
-  const renderSearchCountry = searchedCountry.map((country: any) => (
+  const renderSearchCountry = searchedCountry.map((country: CountryT) => (
     <TableRow
       key={nanoid()}
      
@@ -93,12 +91,10 @@ const TableData = () => {
           ))}
       </TableCell>
       <TableCell>
-        <IconButton  color="primary"
-          onClick={() => dispatch(updateFavourite(country.name.common))}
-          
-        >
-          <FavoriteIcon />
-        </IconButton>
+      <IconButton color={isFavourite(country.name.common) ? "primary" : "error"}
+            onClick={() => dispatch(updateFavourite(country.name.common))}>
+            <FavoriteIcon  />
+          </IconButton>
       </TableCell>
       <TableCell>
         <Link to={country.name.common} state={country}>

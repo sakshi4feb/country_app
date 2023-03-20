@@ -27,7 +27,7 @@ import { CountryT, Order, OrderBY } from "../types/CountryTypes";
 
 export const Countries = () => {
   const { countries , isLoading} = useAppSelector(
-    (state: { countryR:any }) => state.countryR
+    (state) => state.countryR
   );
   const [country, setCountry] = useState<CountryT | null>(null);
   const [isSearch, setIsSearch] = useState(false);
@@ -44,7 +44,7 @@ export const Countries = () => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
-  const handleSearch = (newValue: CountryT) => {
+  const handleSearch = (newValue: CountryT | null) => {
     console.log(newValue)
     if (newValue) {
       setCountry(newValue);

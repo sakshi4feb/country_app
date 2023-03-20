@@ -1,4 +1,4 @@
-import { useAppSelector} from "../app/hooks";
+import { useAppSelector , useAppDispatch} from "../app/hooks";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Avatar from "@mui/material/Avatar";
@@ -12,16 +12,16 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { updateFavourite } from "../redux/country/countrySlice";
 
 const CountryData = () => {
   const { favouriteCountries } = useAppSelector(
     (state) => state.countryR
   );
   const { state } = useLocation();
-  const existingCountry = favouriteCountries.find(
-    (country: string) => country === state.name.common
-  );
-  console.log(existingCountry);
+  const dispatch = useAppDispatch();
+  const isFavourite = (countryName : string)=>(favouriteCountries.includes(countryName))
+  
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -56,11 +56,12 @@ const CountryData = () => {
         {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton> */}
-        {existingCountry ? (
-          <FavoriteIcon color="primary" />
-        ) : (
-          <FavoriteIcon color="secondary" />
-        )}
+       
+       <IconButton color={isFavourite(state.name.common) ? "primary" : "error"}
+            onClick={() => dispatch(updateFavourite(state.name.common))}>
+            <FavoriteIcon  />
+       </IconButton>
+       
       </CardActions>
     </Card>
   );
