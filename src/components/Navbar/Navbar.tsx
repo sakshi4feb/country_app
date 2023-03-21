@@ -6,13 +6,16 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import React from "react";
+import React ,{useContext} from "react";
 import { Link } from "react-router-dom";
+import Switch from "@mui/material/Switch";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 
 
 const Navbar = () => {
   const { favouriteCountries } = useAppSelector((state) => state.countryR);
+  const {mode,setMode}  = useContext(ThemeContext);
 
   return (
     <>
@@ -34,12 +37,13 @@ const Navbar = () => {
             <Link to={"/"}>
               <HomeIcon />
             </Link>
+            
             <Link to={"/favoutiteCountries"}>
               <Badge badgeContent={favouriteCountries.length} color="primary">
                 <FavoriteIcon />
               </Badge>
             </Link>
-            {/* <Switch onClick={() => setMode()}></Switch> */}
+            <Switch onClick={() => setMode(!mode)}></Switch>
           </Toolbar>
         </AppBar>
       </Box>

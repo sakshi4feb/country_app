@@ -12,8 +12,7 @@ import Pagination from "../components/Pagination";
 import TableHeader from "../components/Tables/TableHeader";
 import TableData from "../components/Tables/TableData";
 import { fetchCountries } from "../redux/country/countrySlice";
-import { searchCountry } from "../redux/country/countrySlice";
-import { Autocomplete, TextField, Stack } from "@mui/material";
+import { TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
@@ -22,14 +21,17 @@ import "react-toastify/dist/ReactToastify.css";
 import CircleLoader from "react-spinners/CircleLoader";
 import TableFooter from '@mui/material/TableFooter';
 import TableRow from '@mui/material/TableRow';
-import { CountryT, Order, OrderBY } from "../types/CountryTypes";
+import { Order, OrderBY } from "../types/CountryTypes";
+import Box from '@mui/material/Box';
+import { searchCountries } from "../redux/country/countrySlice";
+
 
 
 export const Countries = () => {
-  const { countries , isLoading} = useAppSelector(
+  const {isLoading} = useAppSelector(
     (state) => state.countryR
   );
-  const [country, setCountry] = useState<CountryT | null>(null);
+  const [country, setCountry] = useState<string | null>(null);
   const [isSearch, setIsSearch] = useState(false);
   //sorting
   const [order, setOrder] = React.useState<Order>("asc");
@@ -44,12 +46,12 @@ export const Countries = () => {
     dispatch(fetchCountries());
   }, [dispatch]);
 
-  const handleSearch = (newValue: CountryT | null) => {
-    console.log(newValue)
+  const handleSearch = (newValue:string) => {
+  
     if (newValue) {
       setCountry(newValue);
       setIsSearch(true);
-      dispatch(searchCountry(newValue));
+      dispatch(searchCountries(newValue));
     } else {
       setIsSearch(false);
       setCountry(null);
@@ -84,7 +86,7 @@ export const Countries = () => {
         speedMultiplier={3}
       /> :
       <div>
-      <Stack spacing={2} sx={{ width: 200 }}>
+      {/* <Stack spacing={2} sx={{ width: 200, ml:3 , mt:3 , mb:5}}>
         <Autocomplete
           id="size-small-standard"
           size="small"
@@ -101,7 +103,23 @@ export const Countries = () => {
           value={country}
           onChange={(e, newCountry) => handleSearch(newCountry)}
         />
-      </Stack>
+      </Stack> */}
+      <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 3, ml : 1,width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+      {/* <TextField id="filled-basic" label="Search Country" variant="filled" color="primary"  */}
+      <TextField label="Search Countries" color="primary" focused
+      value={country}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+      />
+      </div>
+    </Box>
       <SortingContextOrder.Provider value={order}>
         <SortingContextOrderBy.Provider value={orderBy}>
           <PaginationContextPage.Provider value={page}>

@@ -23,3 +23,8 @@ export interface CountryState {
 export type Order = "asc" | "desc"
 
 export type OrderBY = "name" | "population"
+
+export type ThemeContent = {
+  mode: boolean
+  setMode:(c: boolean) => void
+}

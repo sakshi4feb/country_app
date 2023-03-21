@@ -53,10 +53,6 @@ const CountryData = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
-       
        <IconButton color={isFavourite(state.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(state.name.common))}>
             <FavoriteIcon  />
