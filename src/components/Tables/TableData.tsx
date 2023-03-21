@@ -74,7 +74,8 @@ const TableData = () => {
       </TableRow>
     ));
 
-  const renderSearchCountry = searchedCountry.map((country: CountryT) => (
+  const renderSearchCountry = stableSort(searchedCountry, getComparator(order, orderBy))
+  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((country: CountryT) => (
     <TableRow
       key={nanoid()}
     >
