@@ -1,9 +1,11 @@
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { fetchCountry } from "../../services/fetchCountries";
 import { searchCountry } from "../../services/searchcountries";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import { CountryState } from "../../types/CountryTypes";
 import { CountryT } from "../../types/CountryTypes";
+
+import { toast } from "react-toastify";
 
 const initialState: CountryState = {
   countries: [],
@@ -36,7 +38,7 @@ export const countrySlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     updateFavourite: (state, action:PayloadAction<string>) => {
-      let existingCountry = state.favouriteCountries.find(
+      const existingCountry = state.favouriteCountries.find(
         (country: string) => country === action.payload
       );
       if (!existingCountry) {
@@ -75,6 +77,7 @@ export const countrySlice = createSlice({
       //searchCountries
       builder
       .addCase(searchCountries.pending, (state) => {
+        state.isLoading = false;
       
       })
       .addCase(

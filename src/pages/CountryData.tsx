@@ -1,4 +1,9 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+
 import { useAppSelector , useAppDispatch} from "../app/hooks";
+import { updateFavourite } from "../redux/country/countrySlice";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Avatar from "@mui/material/Avatar";
@@ -10,9 +15,6 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { updateFavourite } from "../redux/country/countrySlice";
 
 const CountryData = () => {
   const { favouriteCountries } = useAppSelector(

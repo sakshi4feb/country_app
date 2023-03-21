@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import {
   PaginationContextPage,
   PaginationContextRowsPerPage,
@@ -7,25 +10,22 @@ import {
   SortingContextOrderBy,
 } from "../Context/SortingContext";
 import { TableContext } from "../Context/TableContext";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
 import Pagination from "../components/Pagination";
 import TableHeader from "../components/Tables/TableHeader";
 import TableData from "../components/Tables/TableData";
-import { fetchCountries } from "../redux/country/countrySlice";
+import { fetchCountries ,searchCountries } from "../redux/country/countrySlice";
+import { Order, OrderBY } from "../types/CountryTypes";
+
 import { TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
-import React, { useState, useEffect } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import CircleLoader from "react-spinners/CircleLoader";
 import TableFooter from '@mui/material/TableFooter';
 import TableRow from '@mui/material/TableRow';
-import { Order, OrderBY } from "../types/CountryTypes";
 import Box from '@mui/material/Box';
-import { searchCountries } from "../redux/country/countrySlice";
 
-
+import "react-toastify/dist/ReactToastify.css";
+import CircleLoader from "react-spinners/CircleLoader";
 
 export const Countries = () => {
   const {isLoading} = useAppSelector(

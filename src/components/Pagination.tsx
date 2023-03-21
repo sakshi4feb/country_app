@@ -1,15 +1,16 @@
+import React, { useContext } from "react";
+
+import { useAppSelector } from "../app/hooks"
 import {
   PaginationContextPage,
   PaginationContextRowsPerPage,
 } from "../Context/PaginationContext";
-import TablePagination from "@mui/material/TablePagination";
-import { useAppSelector } from "../app/hooks"
-import React, { useContext } from "react";
 
+import TablePagination from "@mui/material/TablePagination";
 
 const Pagination = (props: any) => {
   const { countries} = useAppSelector(
-    (state: { countryR: any }) => state.countryR
+    (state) => state.countryR
   );
   const page: any = useContext(PaginationContextPage);
   const rowsPerPage: any = useContext(PaginationContextRowsPerPage);

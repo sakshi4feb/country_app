@@ -1,5 +1,6 @@
-import { useAppSelector } from "../app/hooks";
 import React from "react";
+
+import { useAppSelector } from "../app/hooks";
 
 const FavouriteCountries = () => {
   const { favouriteCountries } = useAppSelector(

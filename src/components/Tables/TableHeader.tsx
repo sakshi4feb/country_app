@@ -1,10 +1,12 @@
+import React from "react";
+
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import React from "react";
-import { Order, OrderBY } from "../../types/CountryTypes";
 
+
+import { Order, OrderBY } from "../../types/CountryTypes";
 
 type TableHeaderProps = {
   order : Order,
