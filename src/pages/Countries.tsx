@@ -47,7 +47,6 @@ export const Countries = () => {
   }, [dispatch]);
 
   const handleSearch = (newValue:string) => {
-  
     if (newValue) {
       setCountry(newValue);
       setIsSearch(true);
@@ -82,7 +81,6 @@ export const Countries = () => {
       autoComplete="off"
     >
       <div>
-      {/* <TextField id="filled-basic" label="Search Country" variant="filled" color="primary"  */}
       <TextField label="Search Countries" color="primary" focused
       value={country}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}

@@ -86,7 +86,6 @@ export const countrySlice = createSlice({
           state.isLoading = false;
           state.message = "Search Successful";
           state.searchedCountry = action.payload;
-          
         }
       )
       .addCase(searchCountries.rejected, (state) => {

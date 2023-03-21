@@ -14,8 +14,6 @@ const Pagination = () => {
   );
   const {page ,setPage} = useContext(PaginationContextPage);
   const {rowsPerPage, setRowsPerPage} = useContext(PaginationContextRowsPerPage);
-
-   console.log(searchedCountry)
   const createHandleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
