@@ -1,8 +1,11 @@
-import { fetchCountry } from "../../services/fetchCountries";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
+
+import { fetchCountry } from "../../services/fetchCountries";
+import { searchCountry } from "../../services/searchcountries";
 import { CountryState } from "../../types/CountryTypes";
 import { CountryT } from "../../types/CountryTypes";
+
+import { toast } from "react-toastify";
 
 const initialState: CountryState = {
   countries: [],
@@ -21,13 +24,21 @@ export const fetchCountries = createAsyncThunk(
   }
 );
 
+export const searchCountries = createAsyncThunk(
+  "country/searchCountry",
+  async (value : string, thunkAPI) => {
+    const response: CountryT [] = await searchCountry(value);
+    return response;
+  }
+);
+
 export const countrySlice = createSlice({
   name: "country",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     updateFavourite: (state, action:PayloadAction<string>) => {
-      let existingCountry = state.favouriteCountries.find(
+      const existingCountry = state.favouriteCountries.find(
         (country: string) => country === action.payload
       );
       if (!existingCountry) {
@@ -38,15 +49,7 @@ export const countrySlice = createSlice({
         toast("A country just got removed from the favorite page!");
       }
     },
-    searchCountry: (state, action:PayloadAction<CountryT>) => {
-      const existingCountry = state.countries.find(
-        (country: CountryT) => country.name.common === action.payload.name.common
-      );
-      if (existingCountry) {
-        state.searchedCountry = [];
-        state.searchedCountry.push(action.payload);
-      }
-    },
+  
   },
 
   extraReducers: (builder) => {
@@ -70,8 +73,28 @@ export const countrySlice = createSlice({
         state.message = "Fetch Failed";
         state.countries = [];
       });
+
+      //searchCountries
+      builder
+      .addCase(searchCountries.pending, (state) => {
+        state.isLoading = false;
+      
+      })
+      .addCase(
+        searchCountries.fulfilled,
+        (state, action: PayloadAction<CountryT[]>) => {
+          state.isLoading = false;
+          state.message = "Search Successful";
+          state.searchedCountry = action.payload;
+        }
+      )
+      .addCase(searchCountries.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = "Search Failed";
+      });
   },
 });
 
-export const { updateFavourite, searchCountry } = countrySlice.actions;
+export const { updateFavourite } = countrySlice.actions;
 export default countrySlice.reducer;

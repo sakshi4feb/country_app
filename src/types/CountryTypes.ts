@@ -23,3 +23,18 @@ export interface CountryState {
 export type Order = "asc" | "desc"
 
 export type OrderBY = "name" | "population"
+
+export type ThemeContent = {
+  mode: boolean
+  setMode:(c: boolean) => void
+}
+
+export type PaginationContentPage = {
+  page: number
+  setPage:(c: number) => void
+}
+
+export type PaginationContentRowsPerPage = {
+  rowsPerPage: number
+  setRowsPerPage:(c: number) => void
+}

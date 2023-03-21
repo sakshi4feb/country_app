@@ -3,7 +3,7 @@ body {
 }
 
 .fav-country{
-  min-height: 100vh;
+  min-height: 65vh;
   font-family: 'Nunito', sans-serif;
   padding: 3rem
 }
