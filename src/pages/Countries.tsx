@@ -62,19 +62,6 @@ export const Countries = () => {
     setOrderBy(property);
     setOrder(isAscending ? "desc" : "asc");
   };
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
   return (
     <div className="main">
       {isLoading? <CircleLoader
@@ -86,24 +73,6 @@ export const Countries = () => {
         speedMultiplier={3}
       /> :
       <div>
-      {/* <Stack spacing={2} sx={{ width: 200, ml:3 , mt:3 , mb:5}}>
-        <Autocomplete
-          id="size-small-standard"
-          size="small"
-          options={countries}
-          getOptionLabel={(option) => option.name.common}
-          defaultValue={countries[1]}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              placeholder="Search a Country"
-            />
-          )}
-          value={country}
-          onChange={(e, newCountry) => handleSearch(newCountry)}
-        />
-      </Stack> */}
       <Box
       component="form"
       sx={{
@@ -122,8 +91,8 @@ export const Countries = () => {
     </Box>
       <SortingContextOrder.Provider value={order}>
         <SortingContextOrderBy.Provider value={orderBy}>
-          <PaginationContextPage.Provider value={page}>
-            <PaginationContextRowsPerPage.Provider value={rowsPerPage}>
+          <PaginationContextPage.Provider value={{page, setPage}}>
+            <PaginationContextRowsPerPage.Provider value={{rowsPerPage,setRowsPerPage}}>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHeader
@@ -132,20 +101,16 @@ export const Countries = () => {
                     handleRequestSort={handleRequestSort}
                   />
                   <TableContext.Provider value={isSearch}>
-              
                     <TableData />
                    </TableContext.Provider>
                   <TableFooter>
                       <TableRow>
-                        <Pagination
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        />
-                      </TableRow>
+                  <Pagination
+                  />
+                  </TableRow>
                   </TableFooter>
                 </Table>
               </TableContainer>
-              
             </PaginationContextRowsPerPage.Provider>
           </PaginationContextPage.Provider>
         </SortingContextOrderBy.Provider>

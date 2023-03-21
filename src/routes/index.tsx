@@ -18,7 +18,7 @@ const Index = () => {
       <Routes>
         <Route path="/" element={<Countries />} />
         <Route path=":countryName" element={<CountryData />} />
-        <Route path="/favoutiteCountries" element={<FavouriteCountries />} />
+        <Route path="/favoutite-countries" element={<FavouriteCountries />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       </main>

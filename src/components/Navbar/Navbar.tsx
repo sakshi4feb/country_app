@@ -38,7 +38,7 @@ const Navbar = () => {
             <Link to={"/"}>
               <HomeIcon />
             </Link>
-            <Link to={"/favoutiteCountries"}>
+            <Link to={"/favoutite-countries"}>
               <Badge badgeContent={favouriteCountries.length} color="primary">
                 <FavoriteIcon />
               </Badge>

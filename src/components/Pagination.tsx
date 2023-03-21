@@ -8,25 +8,25 @@ import {
 
 import TablePagination from "@mui/material/TablePagination";
 
-const Pagination = (props: any) => {
+const Pagination = () => {
   const { countries} = useAppSelector(
     (state) => state.countryR
   );
-  const page: any = useContext(PaginationContextPage);
-  const rowsPerPage: any = useContext(PaginationContextRowsPerPage);
-  const { handleChangePage, handleChangeRowsPerPage } = props;
+  const {page ,setPage} = useContext(PaginationContextPage);
+  const {rowsPerPage, setRowsPerPage} = useContext(PaginationContextRowsPerPage);
 
   const createHandleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-    handleChangePage(event, newPage);
+    setPage(newPage);
   };
 
   const createHandleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    handleChangeRowsPerPage(event);
+   setRowsPerPage(parseInt(event.target.value, 10));
+   setPage(0);
   };
   return (
     <TablePagination

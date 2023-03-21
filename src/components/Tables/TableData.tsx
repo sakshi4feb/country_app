@@ -29,8 +29,8 @@ import "react-toastify/dist/ReactToastify.css";
 const TableData = () => {
 
   const search = useContext(TableContext);
-  const page: any = useContext(PaginationContextPage);
-  const rowsPerPage: any = useContext(PaginationContextRowsPerPage);
+  const {page, setPage} = useContext(PaginationContextPage);
+  const {rowsPerPage, setRowsPerPage} = useContext(PaginationContextRowsPerPage);
   const order = useContext(SortingContextOrder);
   const orderBy= useContext(SortingContextOrderBy);
   const { countries, searchedCountry , favouriteCountries } = useAppSelector(

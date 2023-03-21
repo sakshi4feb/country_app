@@ -28,3 +28,13 @@ export type ThemeContent = {
   mode: boolean
   setMode:(c: boolean) => void
 }
+
+export type PaginationContentPage = {
+  page: number
+  setPage:(c: number) => void
+}
+
+export type PaginationContentRowsPerPage = {
+  rowsPerPage: number
+  setRowsPerPage:(c: number) => void
+}
