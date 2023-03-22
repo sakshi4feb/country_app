@@ -3,7 +3,7 @@ body {
 }
 
 .fav-country{
-  min-height: 65vh;
+  min-height: 55vh;
   font-family: 'Nunito', sans-serif;
   padding: 3rem
 }
@@ -11,4 +11,11 @@ body {
 .fav-countries{
   margin-left: 3rem;
   font-family: 'Nunito', sans-serif;
+}
+
+.welcome{
+  background-image: url('https://th.bing.com/th/id/R.07bb421396aece7b282a236d08b21f22?rik=YM%2fODMnzLYRn9g&riu=http%3a%2f%2fplanetolog.com%2fmaps%2fmap-world%2fbig%2fsputnik-world-map.jpg&ehk=hyxLApvMfvA2Te%2fk2N2jf9q6aABeSeWIi42CnE1C15Y%3d&risl=&pid=ImgRaw&r=0');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
