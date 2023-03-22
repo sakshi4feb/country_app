@@ -7,6 +7,7 @@ import CountryData from "../pages/CountryData";
 import ErrorPage from "../pages/ErrorPage";
 import FavouriteCountries from "../pages/FavouriteCountries";
 import Footer from "../components/Footer/Footer";
+import Welcome from "../pages/Welcome";
 
 const Index = () => {
   return (
@@ -16,8 +17,9 @@ const Index = () => {
       </header>
       <main>
       <Routes>
-        <Route path="/" element={<Countries />} />
-        <Route path=":countryName" element={<CountryData />} />
+        <Route path="/" element={<Welcome />} />
+        <Route path="/countries" element={<Countries />} />
+        <Route path="/countries/:countryName" element={<CountryData />} />
         <Route path="/favoutite-countries" element={<FavouriteCountries />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

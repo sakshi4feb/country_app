@@ -56,7 +56,7 @@ const CountryData = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-      <Link to={"/"}>
+      <Link to={"/countries"}>
           <ArrowBackIosIcon />
           </Link>
        <IconButton color={isFavourite(state.name.common) ? "secondary" : "primary"}
