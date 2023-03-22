@@ -7,11 +7,14 @@ import {
 } from "../Context/PaginationContext";
 
 import TablePagination from "@mui/material/TablePagination";
+import { TableContext } from "../Context/TableContext";
 
 const Pagination = () => {
+  const search = useContext(TableContext);
   const { countries, searchedCountry} = useAppSelector(
     (state) => state.countryR
   );
+  console.log(searchedCountry.length)
   const {page ,setPage} = useContext(PaginationContextPage);
   const {rowsPerPage, setRowsPerPage} = useContext(PaginationContextRowsPerPage);
   const createHandleChangePage = (
@@ -31,7 +34,8 @@ const Pagination = () => {
     <TablePagination
       rowsPerPageOptions={[10, 25, 50, 100, { label: 'All', value: -1 }]}
       colSpan={8}
-      count={searchedCountry.length ? searchedCountry.length : countries.length}
+
+      count = {search ? searchedCountry.length : countries.length}
       page={page}
       onPageChange={createHandleChangePage}
       rowsPerPage={rowsPerPage}

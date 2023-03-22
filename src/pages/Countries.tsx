@@ -100,13 +100,14 @@ export const Countries = () => {
                   />
                   <TableContext.Provider value={isSearch}>
                     <TableData />
-                   </TableContext.Provider>
+                   
                   <TableFooter>
                       <TableRow>
                   <Pagination
                   />
                   </TableRow>
                   </TableFooter>
+                  </TableContext.Provider>
                 </Table>
               </TableContainer>
             </PaginationContextRowsPerPage.Provider>

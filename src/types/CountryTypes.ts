@@ -38,3 +38,6 @@ export type PaginationContentRowsPerPage = {
   rowsPerPage: number
   setRowsPerPage:(c: number) => void
 }
+
+export type isSearch = true| false
+
