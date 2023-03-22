@@ -49,7 +49,6 @@ export const countrySlice = createSlice({
         toast("A country just got removed from the favorite page!");
       }
     },
-  
   },
 
   extraReducers: (builder) => {
@@ -64,7 +63,6 @@ export const countrySlice = createSlice({
           state.isLoading = false;
           state.message = "Fetch Successful";
           state.countries = action.payload;
-          
         }
       )
       .addCase(fetchCountries.rejected, (state) => {
@@ -78,7 +76,6 @@ export const countrySlice = createSlice({
       builder
       .addCase(searchCountries.pending, (state) => {
         state.isLoading = false;
-      
       })
       .addCase(
         searchCountries.fulfilled,
