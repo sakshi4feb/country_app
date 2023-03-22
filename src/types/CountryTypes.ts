@@ -25,8 +25,8 @@ export type Order = "asc" | "desc"
 export type OrderBY = "name" | "population"
 
 export type ThemeContent = {
-  mode: boolean
-  setMode:(c: boolean) => void
+  mode: "light" | "dark"
+  setMode:(c: "light" | "dark") => void
 }
 
 export type PaginationContentPage = {

@@ -1,11 +1,11 @@
+/* eslint-disable no-restricted-globals */
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation , Link } from "react-router-dom";
 
 import { useAppSelector , useAppDispatch} from "../app/hooks";
 import { updateFavourite } from "../redux/country/countrySlice";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -14,7 +14,12 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+import { blue} from "@mui/material/colors";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import PlaceIcon from '@mui/icons-material/Place';
+
+import { ToastContainer } from "react-toastify";
+import Box from "@mui/material/Box";
 
 const CountryData = () => {
   const { favouriteCountries } = useAppSelector(
@@ -23,19 +28,15 @@ const CountryData = () => {
   const { state } = useLocation();
   const dispatch = useAppDispatch();
   const isFavourite = (countryName : string)=>(favouriteCountries.includes(countryName))
-  
-  return (
-    <Card sx={{ maxWidth: 345, m:10 , ml:70}}>
+
+   return (
+    <Box  sx={{display: 'flex',flexDirection: 'column', justifyContent: 'center', alignItems: 'center' , minHeight:580}}>
+    <Card sx={{  maxWidth: 345,  bgcolor: '#e65100' , boxShadow: 1 , mt:8 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{ bgcolor: blue[500] }} aria-label="country">
+           {`${state.name.common}`.charAt(0)}
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
         }
         title={state.name.common}
         subheader={state.capital}
@@ -55,13 +56,22 @@ const CountryData = () => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+      <Link to={"/"}>
+          <ArrowBackIosIcon />
+          </Link>
        <IconButton color={isFavourite(state.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(state.name.common))}>
             <FavoriteIcon  />
        </IconButton>
-       
+      <Link to={state.maps.googleMaps} target="_blank">
+          <IconButton  sx={{marginLeft: 28}} >
+              <PlaceIcon />
+          </IconButton>
+      </Link>
       </CardActions>
+      <ToastContainer />
     </Card>
+    </Box>
   );
 };
 

@@ -92,7 +92,7 @@ const TableData = () => {
           ))}
       </TableCell>
       <TableCell>
-      <IconButton color={isFavourite(country.name.common) ? "secondary" : "primary"}
+      <IconButton color={isFavourite(country.name.common) ? "primary" : "secondary"}
             onClick={() => dispatch(updateFavourite(country.name.common))}>
             <FavoriteIcon  />
           </IconButton>

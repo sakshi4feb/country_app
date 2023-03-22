@@ -36,14 +36,14 @@ const Navbar = () => {
               COUNTRY
             </Typography>
             <Link to={"/"}>
-              <HomeIcon />
+              <HomeIcon color={mode==='light'? "secondary" : "primary" }/>
             </Link>
             <Link to={"/favoutite-countries"}>
               <Badge badgeContent={favouriteCountries.length} color="primary">
-                <FavoriteIcon />
+                <FavoriteIcon color={mode==='light'? "secondary" : "primary" }/>
               </Badge>
             </Link>
-            <Switch onClick={() => setMode(!mode)}></Switch>
+            <Switch color={mode==='light'? "secondary" : "primary" } onClick={() =>{mode==='light'? setMode('dark'):setMode('light') }} ></Switch>
           </Toolbar>
         </AppBar>
       </Box>
