@@ -43,6 +43,8 @@ const TableHeader = (props: TableHeaderProps) => {
           </TableSortLabel>
         </TableCell>
         <TableCell>Languages</TableCell>
+        <TableCell>Favourite</TableCell>
+        <TableCell>Details</TableCell>
       </TableRow>
     </TableHead>
   );

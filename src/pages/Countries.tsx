@@ -31,7 +31,7 @@ export const Countries = () => {
   const {isLoading} = useAppSelector(
     (state) => state.countryR
   );
-  const [country, setCountry] = useState<string | null>(null);
+  const [country, setCountry] = useState<string>('');
   const [isSearch, setIsSearch] = useState(false);
   //sorting
   const [order, setOrder] = React.useState<Order>("asc");
@@ -53,7 +53,7 @@ export const Countries = () => {
       dispatch(searchCountries(newValue));
     } else {
       setIsSearch(false);
-      setCountry(null);
+      setCountry('');
     }
   };
   const handleRequestSort = (event: React.MouseEvent<HTMLButtonElement>, property: "name" | "population") => {
