@@ -39,5 +39,13 @@ export type PaginationContentRowsPerPage = {
   setRowsPerPage:(c: number) => void
 }
 
-export type isSearch = true| false
+export type IsSearchContent =  {
+  isSearch: boolean
+  setIsSearch:(c: boolean) => void
+}
 
+export type Response = {
+  status: number
+  message: string;
+  data : CountryT[];
+};

@@ -1,3 +1,7 @@
 import { createContext } from "react";
+import { IsSearchContent } from "../types/CountryTypes";
 
-export const TableContext = createContext(false);
+export const TableContext = createContext<IsSearchContent>({
+    isSearch: false,
+    setIsSearch : ()=> {}
+});

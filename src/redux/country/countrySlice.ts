@@ -4,6 +4,7 @@ import { fetchCountry } from "../../services/fetchCountries";
 import { searchCountry } from "../../services/searchcountries";
 import { CountryState } from "../../types/CountryTypes";
 import { CountryT } from "../../types/CountryTypes";
+import { Response } from "../../types/CountryTypes";
 
 import { toast } from "react-toastify";
 
@@ -19,23 +20,30 @@ const initialState: CountryState = {
 export const fetchCountries = createAsyncThunk(
   "country/fetchCountry",
   async (_, thunkAPI) => {
-    const response: CountryT [] = await fetchCountry();
-    return response;
-  }
-);
+    try{
+    const response:Response = await fetchCountry();
+    return response.data;
+    }
+    catch(error){
+      return thunkAPI.rejectWithValue({message: "Data could not be fetched!"});
+    }
+  });
 
 export const searchCountries = createAsyncThunk(
   "country/searchCountry",
   async (value : string, thunkAPI) => {
-    const response: CountryT [] = await searchCountry(value);
-    return response;
+    try{
+    const response: Response = await searchCountry(value);
+    return response.data;
+    }
+    catch(error){
+      return thunkAPI.rejectWithValue({message: "No Country found with this name! Please try another."});
   }
-);
+});
 
 export const countrySlice = createSlice({
   name: "country",
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     updateFavourite: (state, action:PayloadAction<string>) => {
       const existingCountry = state.favouriteCountries.find(
@@ -60,15 +68,17 @@ export const countrySlice = createSlice({
       .addCase(
         fetchCountries.fulfilled,
         (state, action: PayloadAction<CountryT[]>) => {
+          state.isError=false
           state.isLoading = false;
           state.message = "Fetch Successful";
           state.countries = action.payload;
         }
       )
-      .addCase(fetchCountries.rejected, (state) => {
+      .addCase(fetchCountries.rejected,
+        (state,action: any) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = "Fetch Failed";
+        state.message = action.payload.message;
         state.countries = [];
       });
 
@@ -81,14 +91,15 @@ export const countrySlice = createSlice({
         searchCountries.fulfilled,
         (state, action: PayloadAction<CountryT[]>) => {
           state.isLoading = false;
+          state.isError=false;
           state.message = "Search Successful";
           state.searchedCountry = action.payload;
         }
       )
-      .addCase(searchCountries.rejected, (state) => {
+      .addCase(searchCountries.rejected, (state , action:any) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = "Search Failed";
+        state.message = action.payload.message;
       });
   },
 });

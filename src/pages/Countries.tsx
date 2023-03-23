@@ -28,7 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CircleLoader from "react-spinners/CircleLoader";
 
 export const Countries = () => {
-  const {isLoading} = useAppSelector(
+  const {isLoading , isError , message} = useAppSelector(
     (state) => state.countryR
   );
   const [country, setCountry] = useState<string>('');
@@ -71,22 +71,23 @@ export const Countries = () => {
         aria-label="Loading Spinner"
         speedMultiplier={3}
       /> :
-      <div>
+      (<div>
       <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 3, ml : 1,width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-      <TextField label="Search Countries" color="primary" focused
-      value={country}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
-      />
-      </div>
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 3, ml : 1,width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+          >
+          <div>
+          <TextField label="Search Countries" color="primary" focused
+          value={country}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+          />
+          </div>
     </Box>
+    {isError? (<h2>{message}</h2>):
       <SortingContextOrder.Provider value={order}>
         <SortingContextOrderBy.Provider value={orderBy}>
           <PaginationContextPage.Provider value={{page, setPage}}>
@@ -98,9 +99,8 @@ export const Countries = () => {
                     orderBy={orderBy}
                     handleRequestSort={handleRequestSort}
                   />
-                  <TableContext.Provider value={isSearch}>
+                  <TableContext.Provider value={{isSearch,setIsSearch}}>
                     <TableData />
-                   
                   <TableFooter>
                       <TableRow>
                   <Pagination
@@ -113,8 +113,8 @@ export const Countries = () => {
             </PaginationContextRowsPerPage.Provider>
           </PaginationContextPage.Provider>
         </SortingContextOrderBy.Provider>
-      </SortingContextOrder.Provider>
-      </div>}
+      </SortingContextOrder.Provider>}
+      </div>)}
     </div>
   );
 };

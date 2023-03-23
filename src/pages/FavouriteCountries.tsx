@@ -1,14 +1,16 @@
 import React from "react";
+import { nanoid } from "@reduxjs/toolkit";
 
 import { useAppSelector } from "../app/hooks";
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 
+
 const FavouriteCountries = () => {
   const { favouriteCountries } = useAppSelector(
     (state) => state.countryR
   );
-  const renderCountries = favouriteCountries.map((country:string)=><li> {country}</li>)
+  const renderCountries = favouriteCountries.map((country:string)=><li key={nanoid()}> {country}</li>)
   return (
   <Box sx={{display: 'flex',flexDirection: 'column', justifyContent: 'center', alignItems: 'center' , minHeight:595 }}>
   {favouriteCountries.length ?
