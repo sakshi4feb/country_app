@@ -10,7 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import { TableContext } from "../Context/TableContext";
 
 const Pagination = () => {
-  const {isSearch , setIsSearch} = useContext(TableContext);
+  const {isSearch} = useContext(TableContext);
   const { countries, searchedCountry} = useAppSelector(
     (state) => state.countryR
   );
