@@ -27,17 +27,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const TableData = () => {
-
-  const search = useContext(TableContext);
+  const {isSearch , setIsSearch} = useContext(TableContext);
   const {page, setPage} = useContext(PaginationContextPage);
   const {rowsPerPage, setRowsPerPage} = useContext(PaginationContextRowsPerPage);
   const order = useContext(SortingContextOrder);
   const orderBy= useContext(SortingContextOrderBy);
-  const { countries, searchedCountry , favouriteCountries } = useAppSelector(
+  const { countries, searchedCountry , favouriteCountries, message, isError} = useAppSelector(
     (state) => state.countryR
   );
   const isFavourite = (countryName : string)=>(favouriteCountries.includes(countryName))
   const dispatch = useAppDispatch();
+  if(message==="Fetch Successful") {setIsSearch(false)}
   const renderCountries = stableSort(countries, getComparator(order, orderBy))
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map((country: CountryT) => (
@@ -92,7 +92,7 @@ const TableData = () => {
           ))}
       </TableCell>
       <TableCell>
-      <IconButton color={isFavourite(country.name.common) ? "primary" : "secondary"}
+      <IconButton color={isFavourite(country.name.common) ? "secondary" : "primary"}
             onClick={() => dispatch(updateFavourite(country.name.common))}>
             <FavoriteIcon  />
           </IconButton>
@@ -108,7 +108,7 @@ const TableData = () => {
   ));
   return (
     <>
-      <TableBody>{search ? renderSearchCountry : renderCountries}</TableBody>
+      <TableBody>{isSearch ?( isError? <h2>{message}</h2> :renderSearchCountry ): renderCountries}</TableBody>
       <ToastContainer />
     </>
   );

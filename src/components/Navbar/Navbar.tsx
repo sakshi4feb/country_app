@@ -33,7 +33,7 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              COUNTRY
+             Countrypedia
             </Typography>
             <Link to={"/"}>
               <HomeIcon color={mode==='light'? "secondary" : "primary" }/>
